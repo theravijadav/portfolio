@@ -20,20 +20,32 @@ const Navbar = () => {
     { name: 'Contact', href: '#contact' },
   ];
 
+  const handleScrollTo = (e, href) => {
+    e.preventDefault();
+    if (href === '#') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'glass py-4' : 'bg-transparent py-6'}`}>
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold tracking-tighter text-gradient hover:opacity-80 transition-opacity">
+        <a href="#" onClick={(e) => handleScrollTo(e, '#')} className="text-2xl font-bold tracking-tighter text-gradient hover:opacity-80 transition-opacity">
           Ravi Jadav
         </a>
         <div className="hidden md:flex gap-8">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="text-sm font-medium text-light/80 hover:text-primary transition-colors duration-200">
+            <a key={link.name} href={link.href} onClick={(e) => handleScrollTo(e, link.href)} className="text-sm font-medium text-light/80 hover:text-primary transition-colors duration-200">
               {link.name}
             </a>
           ))}
         </div>
-        <a href="#contact" className="hidden md:inline-block px-5 py-2 rounded-full border border-primary/50 text-primary hover:bg-primary/10 transition-colors text-sm font-semibold">
+        <a href="#contact" onClick={(e) => handleScrollTo(e, '#contact')} className="hidden md:inline-block px-5 py-2 rounded-full border border-primary/50 text-primary hover:bg-primary/10 transition-colors text-sm font-semibold">
           Hire Me
         </a>
         <button className="md:hidden text-light">
