@@ -1,6 +1,12 @@
 import React from 'react';
 
 const Contact = () => {
+  const footerLinks = [
+    { name: 'GitHub', url: 'https://github.com/theravijadav' },
+    { name: 'Twitter', url: '' }, // Leave empty to hide
+    { name: 'Resume', url: '/Ravi%20Jadav%20-%20Resume.pdf' }
+  ];
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
       {/* Background elements */}
@@ -24,9 +30,19 @@ const Contact = () => {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted">© {new Date().getFullYear()} Ravi Jadav. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="text-muted hover:text-white transition-colors">GitHub</a>
-            <a href="#" className="text-muted hover:text-white transition-colors">Twitter</a>
-            <a href="/Ravi%20Jadav%20-%20Resume.pdf" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-white transition-colors">Resume</a>
+            {footerLinks.map((link) => (
+              link.url ? (
+                <a 
+                  key={link.name} 
+                  href={link.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-muted hover:text-white transition-colors"
+                >
+                  {link.name}
+                </a>
+              ) : null
+            ))}
           </div>
         </div>
       </div>
