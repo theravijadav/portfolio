@@ -53,7 +53,7 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
-                <a href={project.link} className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-primary transition-colors">
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-primary transition-colors">
                   View Repository 
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
