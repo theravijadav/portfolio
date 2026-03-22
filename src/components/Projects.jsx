@@ -9,6 +9,12 @@ const Projects = () => {
       link: "https://github.com/theravijadav/Playwright-GenAI-Auto"
     },
     {
+      title: "Playwright-Salesforce-Enterprise",
+      description: "A robust boilerplate test automation framework specialized for Salesforce. It features data-driven testing, deep logging with Winston, and encrypted secrets.",
+      tags: ["Playwright", "TypeScript", "Enterprise QA", "Salesforce"],
+      link: "https://github.com/theravijadav/Playwright-Salesforce-Enterprise"
+    },
+    {
       title: "API-Contract-Sentinel",
       description: "Automated contract testing CLI tool that continuously monitors OpenAPI schemas against deployed robust backend endpoints to prevent breaking changes.",
       tags: ["JavaScript", "OpenAPI", "Docker"],
