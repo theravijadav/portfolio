@@ -1,10 +1,11 @@
+```
 import React from 'react';
 
 const Contact = () => {
   const footerLinks = [
     { name: 'GitHub', url: 'https://github.com/theravijadav' },
     { name: 'Twitter', url: '' }, // Leave empty to hide
-    { name: 'Resume', url: '/Ravi%20Jadav%20-%20Resume.pdf' }
+    { name: 'Resume', url: '/portfolio/Ravi%20Jadav%20-%20Resume.pdf' }
   ];
 
   return (
