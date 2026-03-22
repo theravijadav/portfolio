@@ -17,8 +17,8 @@ const Projects = () => {
     {
       title: "API-Contract-Sentinel",
       description: "Automated contract testing CLI tool that continuously monitors OpenAPI schemas against deployed robust backend endpoints to prevent breaking changes.",
-      tags: ["JavaScript", "OpenAPI", "Docker"],
-      link: "#"
+      tags: ["Node.js", "Playwright", "OpenAPI", "Ajv Engine"],
+      link: "https://github.com/theravijadav/API-Contract-Sentinel"
     }
   ];
 
