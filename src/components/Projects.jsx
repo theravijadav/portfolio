@@ -9,15 +9,9 @@ const Projects = () => {
       link: "https://github.com/theravijadav/Playwright-GenAI-Auto"
     },
     {
-      title: "Cypress-Load-Tester",
-      description: "Custom plugin for Cypress that enables running functional E2E tests concurrently as load tests to validate frontend performance under heavy traffic scenarios.",
-      tags: ["Cypress", "JavaScript", "Performance", "Node.js"],
-      link: "#"
-    },
-    {
       title: "API-Contract-Sentinel",
       description: "Automated contract testing CLI tool that continuously monitors OpenAPI schemas against deployed robust backend endpoints to prevent breaking changes.",
-      tags: ["Python", "PyTest", "OpenAPI", "Docker"],
+      tags: ["JavaScript", "OpenAPI", "Docker"],
       link: "#"
     }
   ];
