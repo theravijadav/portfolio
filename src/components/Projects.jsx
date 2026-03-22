@@ -6,7 +6,7 @@ const Projects = () => {
       title: "Playwright-GenAI-Auto",
       description: "A comprehensive End-to-End automation framework utilizing Playwright and generative AI for self-healing tests. Reduces test maintenance by autogenerating robust selectors upon failure.",
       tags: ["Playwright", "TypeScript", "OpenAI API", "GitHub Actions"],
-      link: "#"
+      link: "https://github.com/theravijadav/Playwright-GenAI-Auto"
     },
     {
       title: "Cypress-Load-Tester",
