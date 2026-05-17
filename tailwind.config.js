@@ -7,23 +7,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: 'rgb(var(--color-dark) / <alpha-value>)',
-        darker: 'rgb(var(--color-darker) / <alpha-value>)',
-        primary: 'rgb(var(--color-primary) / <alpha-value>)',
-        secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
-        accent: 'rgb(var(--color-accent) / <alpha-value>)',
-        light: 'rgb(var(--color-light) / <alpha-value>)',
-        muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        dark: '#09090B',
+        darker: '#050507',
+        primary: '#0EA5E9',     /* Cyber Blue */
+        secondary: '#8B5CF6',   /* Purple */
+        accent: '#10B981',      /* Success Green */
+        cyber: '#0EA5E9',       /* Cyber Blue */
+        success: '#10B981',     /* Neon Success Green */
+        amber: '#F59E0B',       /* Amber Active State */
+        light: '#F3F4F6',
+        muted: '#9CA3AF',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+      },
+      letterSpacing: {
+        micro: '-0.02em',
       },
       animation: {
         'fade-in': 'fadeIn 0.8s ease-out forwards',
         'slide-up': 'slideUp 0.8s ease-out forwards',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'scan': 'scan 2s linear infinite',
+        'pulse-glow': 'pulseGlow 2s infinite',
+        'pipeline-flow': 'pipelineFlow 3s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -37,6 +45,14 @@ export default {
         scan: {
           '0%': { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100%)' },
+        },
+        pulseGlow: {
+          '0%, 100%': { boxShadow: '0 0 15px rgba(14, 165, 233, 0.5)' },
+          '50%': { boxShadow: '0 0 30px rgba(16, 185, 129, 0.8)' },
+        },
+        pipelineFlow: {
+          '0%': { strokeDashoffset: '100' },
+          '100%': { strokeDashoffset: '0' },
         }
       }
     },

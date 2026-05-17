@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Code, Terminal, Play, CheckCircle2, AlertCircle, RefreshCw, ExternalLink, Zap, ShieldAlert, Cpu } from 'lucide-react';
+import { Code, Terminal, Play, CheckCircle2, AlertCircle, RefreshCw, ExternalLink, Zap, ShieldAlert, Cpu, Activity, PlaySquare } from 'lucide-react';
 
 const simulationsData = {
   genai: {
@@ -36,7 +36,7 @@ const simulationsData = {
   }
 };
 
-const Projects = () => {
+const Projects = ({ auditMode }) => {
   const [activeSim, setActiveSim] = useState(null);
   const [simStep, setSimStep] = useState(0);
 
@@ -62,6 +62,8 @@ const Projects = () => {
   const projects = [
     {
       id: "genai",
+      stepNum: "EXECUTION BLOCK 3.1",
+      badge: "STABLE",
       title: "Playwright-GenAI-Auto",
       description: "A comprehensive End-to-End automation framework utilizing Playwright and generative AI for self-healing tests. Reduces test maintenance by autogenerating robust selectors upon failure.",
       tags: ["Playwright", "TypeScript", "OpenAI API", "GitHub Actions"],
@@ -69,6 +71,8 @@ const Projects = () => {
     },
     {
       id: "salesforce",
+      stepNum: "EXECUTION BLOCK 3.2",
+      badge: "PASSED",
       title: "Playwright-Salesforce-Enterprise",
       description: "A robust boilerplate test automation framework specialized for Salesforce. It features data-driven testing, deep logging with Winston, and encrypted secrets.",
       tags: ["Playwright", "TypeScript", "Enterprise QA", "Salesforce"],
@@ -76,6 +80,8 @@ const Projects = () => {
     },
     {
       id: "sentinel",
+      stepNum: "EXECUTION BLOCK 3.3",
+      badge: "PASSED",
       title: "API-Contract-Sentinel",
       description: "Automated contract testing CLI tool that continuously monitors OpenAPI schemas against deployed robust backend endpoints to prevent breaking changes.",
       tags: ["Node.js", "Playwright", "OpenAPI", "Ajv Engine"],
@@ -84,12 +90,21 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Featured <span className="text-gradient">Projects & Simulators</span></h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mb-6"></div>
-          <p className="text-muted max-w-2xl text-lg">Open-source contributions and personal frameworks designed to push the boundaries of automated testing and CI/CD pipelines. Click on the simulators to watch the frameworks in action!</p>
+    <section id="projects" className="py-12 relative z-10 border-t border-white/5 bg-darker/60">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className={`mb-16 text-center ${auditMode ? 'audit-box p-4' : ''}`}>
+          {auditMode && <div className="audit-tag">section="automation-suite" [ARIA]</div>}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass bg-white/5 border border-white/10 mb-4 text-xs font-semibold text-cyber uppercase tracking-wider">
+            <Terminal className="w-4 h-4 text-cyber" />
+            <span>Stage 3: Test Automation Suite</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+            Featured <span className="text-gradient">Projects & Simulators</span>
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-cyber via-purple-500 to-success rounded-full mb-6 mx-auto"></div>
+          <p className="text-muted max-w-2xl text-sm md:text-base leading-relaxed mx-auto">
+            Open-source contributions and personal frameworks designed to push the boundaries of automated testing and CI/CD pipelines. Click on the simulators to watch the frameworks in action!
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -99,14 +114,48 @@ const Projects = () => {
             const currentSteps = isSimulating ? sim.steps.slice(0, simStep) : [];
             const isFinished = isSimulating && simStep === sim.steps.length;
 
+            let badgeStatus = project.badge;
+            if (isSimulating && !isFinished) {
+              badgeStatus = "PIPELINE ACTIVE";
+            } else if (isSimulating && isFinished) {
+              badgeStatus = "PASSED";
+            }
+
             return (
-              <div key={project.id} className="glass p-8 rounded-3xl flex flex-col h-full group hover:bg-white/10 transition-colors border border-white/10 hover:border-primary/50 relative overflow-hidden bg-darker/60 shadow-xl">
+              <div
+                key={project.id}
+                className={`glass p-8 rounded-3xl flex flex-col h-full group hover:bg-white/10 transition-all border duration-300 ${
+                  isSimulating
+                    ? 'border-amber shadow-[0_0_25px_rgba(245,158,11,0.25)] bg-dark/90'
+                    : 'border-white/10 hover:border-cyber/50 bg-darker/60 shadow-xl'
+                } relative overflow-hidden ${auditMode ? 'audit-box' : ''}`}
+              >
+                {auditMode && <div className="audit-tag">data-testid={`exec-block-${project.id}`}</div>}
+
                 {/* Hover gradient effect */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-cyber/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                 
+                {/* Step Header & Mini-Status Badge */}
+                <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 z-10 font-mono">
+                  <span className="text-xs font-bold text-cyber tracking-wider flex items-center gap-1.5">
+                    <PlaySquare className="w-4 h-4 text-cyber" /> {project.stepNum}
+                  </span>
+                  <span
+                    className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border transition-colors ${
+                      badgeStatus === 'PIPELINE ACTIVE'
+                        ? 'bg-amber/20 text-amber border-amber animate-pulse shadow-[0_0_10px_rgba(245,158,11,0.5)]'
+                        : badgeStatus === 'PASSED'
+                        ? 'bg-success/20 text-success border-success/40 shadow-[0_0_10px_rgba(16,185,129,0.3)]'
+                        : 'bg-cyber/20 text-cyber border-cyber/40 shadow-[0_0_10px_rgba(14,165,233,0.3)]'
+                    }`}
+                  >
+                    [{badgeStatus}]
+                  </span>
+                </div>
+
                 <div className="mb-6 z-10 flex-1">
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-inner">
+                    <div className="w-12 h-12 rounded-2xl bg-cyber/10 border border-cyber/20 flex items-center justify-center text-cyber shadow-inner">
                       <Code className="w-6 h-6" />
                     </div>
                     <a
@@ -120,12 +169,12 @@ const Projects = () => {
                     </a>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-primary transition-colors">{project.title}</h3>
-                  <p className="text-muted leading-relaxed text-sm mb-6">{project.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-cyber transition-colors">{project.title}</h3>
+                  <p className="text-muted leading-relaxed text-sm mb-6 font-sans">{project.description}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.tags.map(tag => (
-                      <span key={tag} className="text-xs font-semibold text-accent bg-accent/10 border border-accent/20 px-2.5 py-1 rounded-full">
+                      <span key={tag} className="text-xs font-mono font-semibold text-light bg-white/5 border border-white/10 px-2.5 py-1 rounded-full">
                         {tag}
                       </span>
                     ))}
@@ -133,27 +182,27 @@ const Projects = () => {
                 </div>
                 
                 {/* Interactive Simulator Section */}
-                <div className="mt-auto z-10 border-t border-white/10 pt-6">
+                <div className="mt-auto z-10 border-t border-white/10 pt-6 font-mono">
                   <button
                     onClick={() => startSimulation(project.id)}
                     className={`w-full py-3 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all ${
                       isSimulating
-                        ? 'bg-red-500/20 border border-red-500/40 text-red-300 hover:bg-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.2)]'
-                        : 'bg-primary/20 border border-primary/40 text-primary hover:bg-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.2)]'
+                        ? 'bg-amber/20 border border-amber/40 text-amber hover:bg-amber/30 shadow-[0_0_15px_rgba(245,158,11,0.3)]'
+                        : 'bg-cyber/20 border border-cyber/40 text-cyber hover:bg-cyber/30 shadow-[0_0_15px_rgba(14,165,233,0.2)]'
                     }`}
                   >
-                    {isSimulating ? <RefreshCw className="w-4 h-4 animate-spin" /> : <sim.icon className="w-4 h-4" />}
-                    <span>{isSimulating ? 'Stop Simulator' : sim.btnLabel}</span>
+                    {isSimulating ? <RefreshCw className="w-4 h-4 animate-spin text-amber" /> : <sim.icon className="w-4 h-4 text-cyber" />}
+                    <span>{isSimulating ? 'Terminate Simulator' : sim.btnLabel}</span>
                   </button>
 
                   {/* Simulator Sandbox Output */}
                   {isSimulating && (
-                    <div className="mt-4 rounded-xl bg-black/90 border border-white/15 p-4 font-mono text-[11px] leading-relaxed shadow-2xl animate-slide-up max-h-52 overflow-y-auto space-y-2.5">
+                    <div className="mt-4 rounded-xl bg-black/95 border border-amber/30 p-4 font-mono text-[11px] leading-relaxed shadow-2xl animate-slide-up max-h-52 overflow-y-auto space-y-2.5">
                       <div className="flex items-center justify-between pb-2 border-b border-white/10 text-muted text-[10px] uppercase font-bold tracking-wider select-none">
-                        <span className="flex items-center gap-1.5">
-                          <Terminal className="w-3 h-3 text-primary animate-pulse" /> Live Telemetry Loop
+                        <span className="flex items-center gap-1.5 text-amber">
+                          <Terminal className="w-3 h-3 text-amber animate-pulse" /> Live Telemetry Loop
                         </span>
-                        <span>{simStep} / {sim.steps.length}</span>
+                        <span className="text-amber">{simStep} / {sim.steps.length}</span>
                       </div>
 
                       {currentSteps.map((s, idx) => (
@@ -161,8 +210,8 @@ const Projects = () => {
                           <span className="text-muted/60 select-none">[{s.time}]</span>
                           <span className={`flex-1 ${
                             s.status === 'error' ? 'text-red-400 font-bold' :
-                            s.status === 'warning' ? 'text-yellow-400 font-semibold' :
-                            s.status === 'success' ? 'text-green-400 font-bold' :
+                            s.status === 'warning' ? 'text-amber font-semibold' :
+                            s.status === 'success' ? 'text-success font-bold' :
                             'text-light'
                           }`}>
                             {s.text}
@@ -171,15 +220,15 @@ const Projects = () => {
                       ))}
 
                       {!isFinished && (
-                        <div className="flex items-center gap-2 text-primary animate-pulse pt-1">
-                          <span className="w-2 h-2 rounded-full bg-primary"></span>
-                          <span className="text-[10px]">Processing AI callback stream...</span>
+                        <div className="flex items-center gap-2 text-amber animate-pulse pt-1">
+                          <span className="w-2 h-2 rounded-full bg-amber"></span>
+                          <span className="text-[10px]">Processing execution block stream...</span>
                         </div>
                       )}
 
                       {isFinished && (
-                        <div className="mt-2 p-2 rounded bg-green-500/10 border border-green-500/30 text-green-400 text-center font-bold animate-fade-in flex items-center justify-center gap-1.5">
-                          <CheckCircle2 className="w-4 h-4" /> Simulation Executed Successfully
+                        <div className="mt-2 p-2 rounded bg-success/10 border border-success/30 text-success text-center font-bold animate-fade-in flex items-center justify-center gap-1.5">
+                          <CheckCircle2 className="w-4 h-4" /> Pipeline Step Verified Successfully
                         </div>
                       )}
                     </div>

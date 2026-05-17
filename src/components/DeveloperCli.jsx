@@ -155,10 +155,10 @@ const DeveloperCli = ({ isOpen, onClose, theme, setTheme, onTriggerAudit }) => {
           type: 'output',
           content: [
             '================ CONTACT INFORMATION ================',
-            '✉ Email    : theravijadav@gmail.com',
+            '✉ Email    : me@ravijadav.dev',
             '🔗 LinkedIn : https://linkedin.com/in/ravijadav',
             '🔗 GitHub   : https://github.com/ravijadav-dev',
-            '📄 Resume   : /ravijadav-dev.github.io/Ravi%20Jadav%20-%20Resume.pdf'
+            '📄 Resume   : /Ravi%20Jadav%20-%20Resume.pdf'
           ]
         });
         break;
@@ -177,7 +177,7 @@ const DeveloperCli = ({ isOpen, onClose, theme, setTheme, onTriggerAudit }) => {
             content: ['Senior QA Automation Lead dedicated to flawless software deployment.']
           });
         } else if (arg === 'resume.pdf') {
-          window.open('/ravijadav-dev.github.io/Ravi%20Jadav%20-%20Resume.pdf', '_blank');
+          window.open('/Ravi%20Jadav%20-%20Resume.pdf', '_blank');
           newHistory.push({
             type: 'output',
             content: ['Opening resume in new browser tab...']
@@ -205,7 +205,7 @@ const DeveloperCli = ({ isOpen, onClose, theme, setTheme, onTriggerAudit }) => {
           type: 'output',
           content: [
             '🔒 Permission denied: Recruiter privileges do not include root access!',
-            'Nice try though 😉 Contact theravijadav@gmail.com to unlock full engineering mode.'
+            'Nice try though 😉 Contact me@ravijadav.dev to unlock full engineering mode.'
           ]
         });
         break;
